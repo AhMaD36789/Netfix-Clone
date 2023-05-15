@@ -18,5 +18,6 @@ function Movie (props) {
         </Card.Body>
       </Card>
     </>)
+    
 }
 export default Movie;
