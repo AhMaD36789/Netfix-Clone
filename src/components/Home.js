@@ -8,7 +8,7 @@ function Home() {
     const [movieData, setMovieData] = useState([])
 
     const getAllMovies = () => {
-        const serverURL = "http://localhost:3000/trending";
+        const serverURL = "http://localhost:3001/trending";
 
         fetch(serverURL)
             .then(response => {
@@ -26,8 +26,7 @@ function Home() {
 
     return (
         <>
-            <h1>Home</h1>
-            < MoviesList movieData={movieData} />
+         < MoviesList item={movieData} />
         </>
     );
 

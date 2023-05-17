@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import ModalMovie from './modalmovie/ModalMovie'
+import ModalMovie from './ModalMovie'
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ function Movie(props) {
   const [showFlag, setShowFlag] = useState(false);
   const [clickedMovie, setClickedMovie] = useState({});
 
-  const [comments, setComments] = useState('');
+  const [cmt, setCmts] = useState('');
 
   const handleShow = (item) => {
     setShowFlag(true);
@@ -25,10 +25,10 @@ function Movie(props) {
   };
 
   const addToFav = () => {
-    const serverURL = 'http://localhost:3000/addmovie';
+    const serverURL = 'http://localhost:3001/addmovie';
     const movieData = {
       ...props.item,
-      comments: comments
+      comments: cmt
     };
 
     axios.post(serverURL, movieData)
@@ -58,8 +58,8 @@ function Movie(props) {
         handleClose={handleClose}
         setClickedMovie={clickedMovie}
         addtoFavorite={addToFav}
-        setComments={setComments}
-        comments={comments}
+        setcmt={setCmts}
+        cmt={cmt}
       />
     </>
   );
