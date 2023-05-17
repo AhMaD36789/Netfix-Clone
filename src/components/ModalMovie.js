@@ -23,8 +23,8 @@ function ModalMovie(props) {
                   as="textarea"
                   rows={3}
                   name="comments"
-                  value={props.comments}
-                  onChange={(e) => props.setComments(e.target.value)}
+                  value={props.cmt}
+                  onChange={(e) => props.setcmt(e.target.value)}
                 />
               </Form.Group>
             </Form>
