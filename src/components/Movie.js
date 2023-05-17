@@ -4,9 +4,6 @@ import ModalMovie from './ModalMovie'
 import axios from 'axios';
 import { useState } from 'react';
 
-
-
-
 function Movie(props) {
   const path = `https://image.tmdb.org/t/p/w500`;
 
@@ -38,6 +35,7 @@ function Movie(props) {
       .catch(error => {
         console.log(error);
       });
+      setShowFlag(false);
   };
 
   return (
