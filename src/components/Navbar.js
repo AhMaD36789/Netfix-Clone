@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container';
                     <Navbar.Brand href="#home"></Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/favlist">FavList</Nav.Link>
+                        <Nav.Link href="/Favorite">Favorite</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
