@@ -2,28 +2,14 @@ import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import UpdateModal from "./Favorite buttons/UpdateModal";
+import moment from "moment";
+import axios from "axios";
 
-function Favorite() {
-  const [movieData, setMovieData] = useState([]);
+function Favorite(props) {
   const [clickedMovie, setClickedMovie] = useState({});
   const [updateFlag, setUpdateFlag] = useState(false);
-  const [newArr,setNewArr] = useState([])
+  const [newArr,setNewArr] = useState([]);
   const path = `https://image.tmdb.org/t/p/w500`;
-  const getAllMovies = () => {
-    const serverURL = "http://localhost:3001/getmovies";
-
-    fetch(serverURL)
-      .then(response => {
-        response.json().then(data => {
-          console.log(data)
-          setMovieData(data)
-
-        })
-      })
-  }
-  useEffect(() => {
-    getAllMovies()
-  }, [])
 
   const showUpdateModal = (item) => {
     setUpdateFlag(true);
@@ -37,21 +23,35 @@ function Favorite() {
 const takeNewDataFromUpdatedModal = (arr)=>{
   setNewArr(arr)
 }
+
+const deleteModal = (item)=>{
+  const serverURL=`${process.env.REACT_APP_serverURL}/Delete/${item.id}`
+  axios.delete(serverURL)
+  .then(data=>{
+    takeNewDataFromUpdatedModal(data.data)
+  })
+  .catch(err=>{
+    console.log(err)
+    })
+}
+
 useEffect(()=>{
-  setNewArr(movieData)
+  setNewArr(props.favARR)
   
-},[movieData])
+  
+},[props.favARR])
   return (<>{
-    movieData.map(element => {
+    newArr.map(item => {
+      const releaseDate = moment(item.release_date).utc().format('YYYY-MM-DD');
       return (
-        <Card style={{ width: '18rem' }} key={element.id}>
-          <Card.Img variant="top" src={path + element.poster_path} />
+        <Card style={{ width: '18rem' }} key={item.id}>
+          <Card.Img variant="top" src={path + item.poster_path} />
           <Card.Body>
-            <Card.Title>{element.title}</Card.Title>
-            <Card.Text>{element.release_date}</Card.Text>
-            <Card.Text>{element.overview}</Card.Text>
-            <Button variant="success" onClick={() => { showUpdateModal(element) }}>Update</Button>
-            <Button variant="danger">Delete</Button>
+            <Card.Title>{item.title}</Card.Title>
+            <Card.Text>{releaseDate}</Card.Text>
+            <Card.Text>{item.overview}</Card.Text>
+            <Button variant="success" onClick={() => { showUpdateModal(item) }}>Update</Button>
+            <Button variant="danger" onClick={()=>{ deleteModal(item)}}>Delete</Button>
           </Card.Body>
         </Card>
       )
@@ -59,8 +59,8 @@ useEffect(()=>{
   }
     <UpdateModal 
     updateFlag={updateFlag} 
-    closeUpdateModal={closeUpdateModal} 
     clickedMovie={clickedMovie} 
+    closeUpdateModal={closeUpdateModal} 
     takeNewDataFromUpdatedModal={takeNewDataFromUpdatedModal}/>
   </>
   )

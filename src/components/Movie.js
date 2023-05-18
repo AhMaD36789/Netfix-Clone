@@ -22,7 +22,7 @@ function Movie(props) {
   };
 
   const addToFav = () => {
-    const serverURL = 'http://localhost:3001/addmovie';
+    const serverURL = `${process.env.REACT_APP_serverURL}/addmovie`;
     const movieData = {
       ...props.item,
       comments: cmt

@@ -2,25 +2,32 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import moment from 'moment';
 
-function UpdateModal (props){
-    const updateMovie = async(e) =>{
-        e.preventDefault();
-        const obj={
-         title : e.target.title.value,
-         release_date : e.target.release_date.value,
-         poster_path : e.target.poster_path.value,
-         overview : e.target.overview.value,
-         comments : e.target.comments.value,
+function UpdateModal(props) {
+  const releaseDate = moment(props.clickedMovie.release_date).utc().format('YYYY-MM-DD');
+  const updateMovie = async (e) => {
+
+    e.preventDefault();
+    
+    const serverURL = `${process.env.REACT_APP_serverURL}/Update/${props.clickedMovie.id}`
+    const obj = {
+      title: e.target.title.value,
+      release_date: e.target.release_date.value,
+      poster_path: e.target.poster_path.value,
+      overview: e.target.overview.value,
+      comments: e.target.comments.value
     }
-    const serverURL = `http://localhost:3001/Update/${props.clickedMovie.id}`
-    const result =await axios.put(serverURL,obj)
+    const result = await axios.put(serverURL, obj);
+    console.log(result.data);
     props.closeUpdateModal();
     props.takeNewDataFromUpdatedModal(result.data);
-}
-    return(
-        <>
-        <Modal show={props.updateFlag} onHide={props.closeUpdateModal}>
+    
+
+  }
+  return (
+    <>
+      <Modal show={props.updateFlag} onHide={props.closeUpdateModal}>
         <Modal.Header closeButton>
           <Modal.Title>Make your changes here</Modal.Title>
         </Modal.Header>
@@ -29,7 +36,7 @@ function UpdateModal (props){
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>title</Form.Label>
               <Form.Control
-                 name='title' 
+                name='title'
                 type="title"
                 placeholder="Movie Title"
                 autoFocus
@@ -40,8 +47,9 @@ function UpdateModal (props){
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
+              
               <Form.Label>release date</Form.Label>
-              <Form.Control  name='release_date' type="text" as="input" rows={1} defaultValue={props.clickedMovie.release_date}/>
+              <Form.Control name='release_date' type="text" as="input" rows={1} defaultValue={releaseDate} />
 
             </Form.Group>
 
@@ -50,7 +58,7 @@ function UpdateModal (props){
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>poster path</Form.Label>
-              <Form.Control  name='poster_path' type="text" as="input" rows={1} defaultValue={props.clickedMovie.poster_path}/>
+              <Form.Control name='poster_path' type="text" as="input" rows={1} defaultValue={props.clickedMovie.poster_path} />
 
             </Form.Group>
 
@@ -59,14 +67,14 @@ function UpdateModal (props){
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>overview</Form.Label>
-              <Form.Control as="textarea" name='overview'  rows={3} defaultValue={props.clickedMovie.overview}/>
+              <Form.Control as="textarea" name='overview' rows={3} defaultValue={props.clickedMovie.overview} />
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>comments</Form.Label>
-              <Form.Control as="textarea" name='comments'  rows={3} defaultValue={props.clickedMovie.comments}/>
+              <Form.Control as="textarea" name='comments' rows={3} defaultValue={props.clickedMovie.comments} />
             </Form.Group>
             <Button type='submit' >Submit</Button>
           </Form>
@@ -80,8 +88,8 @@ function UpdateModal (props){
           </Button>
         </Modal.Footer>
       </Modal>
-        </>
-    )
+    </>
+  )
 
 }
 export default UpdateModal;
