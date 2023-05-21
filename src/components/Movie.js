@@ -46,9 +46,9 @@ function Movie(props) {
           <Card.Title>{props.item.title}</Card.Title>
           <Card.Text>{props.item.release_date}</Card.Text>
           <Card.Text>{props.item.overview}</Card.Text>
-          <Button variant="primary" onClick={() => handleShow(props.item)}>
+          <Card.Text><Button variant="primary" onClick={() => handleShow(props.item)}>
             Add to Favorite
-          </Button>
+          </Button></Card.Text>
         </Card.Body>
       </Card>
       <ModalMovie
