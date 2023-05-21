@@ -40,23 +40,30 @@ useEffect(()=>{
   
   
 },[props.favARR])
-  return (<>{
+  return (<>
+    
+      {
     newArr.map(item => {
       const releaseDate = moment(item.release_date).utc().format('YYYY-MM-DD');
       return (
+        
         <Card style={{ width: '18rem' }} key={item.id}>
           <Card.Img variant="top" src={path + item.poster_path} />
           <Card.Body>
             <Card.Title>{item.title}</Card.Title>
             <Card.Text>{releaseDate}</Card.Text>
             <Card.Text>{item.overview}</Card.Text>
-            <Button variant="success" onClick={() => { showUpdateModal(item) }}>Update</Button>
-            <Button variant="danger" onClick={()=>{ deleteModal(item)}}>Delete</Button>
+            <Card.Text>{item.comments}</Card.Text>
+            <Button className="favlisst-button" variant="success" onClick={() => { showUpdateModal(item) }}>Update</Button>
+            <Button className="favlisst-button" variant="danger" onClick={()=>{ deleteModal(item)}}>Delete</Button>
           </Card.Body>
         </Card>
+        
       )
     })
+    
   }
+ 
     <UpdateModal 
     updateFlag={updateFlag} 
     clickedMovie={clickedMovie} 

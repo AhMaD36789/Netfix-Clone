@@ -1,0 +1,24 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 2rem;
+
+}
+.card .card-text .btn{
+    position: absolute;
+    bottom: 5px;
+    left: 26%;
+    margin-bottom: 1%;
+    background-color: red;
+    border: 1px solid red;
+
+}
+.card .card-text {
+    padding-bottom: 3%;
+}
+.favlisst-button{
+    margin-right: 3.2rem;
+    align-self: center;
+}

@@ -26,7 +26,9 @@ function Home() {
 
     return (
         <>
+        <div className="container">
          < MoviesList item={movieData} />
+         </div>
         </>
     );
 

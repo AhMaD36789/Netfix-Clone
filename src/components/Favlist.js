@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Favorite from "./Favorite";
-
+import   "./Favorite.css";
 
 function Favlist() {
     const [favARR, setfavARR] = useState([]);
@@ -22,7 +22,9 @@ function Favlist() {
 
     return (
         <>
+        <div className="container">
             <Favorite favARR={favARR}/>
+            </div>
         </>
     )
 }
