@@ -1,6 +1,7 @@
 // import axios from "axios";
 import { useEffect, useState } from "react";
 import MoviesList from './MovieList.js';
+import axios from "axios";
 
 
 function Home() {
@@ -10,14 +11,16 @@ function Home() {
     const getAllMovies = () => {
         const serverURL = `${process.env.REACT_APP_serverURL}/trending`;
 
-        fetch(serverURL)
-            .then(response => {
-                response.json().then(data => {
-                    console.log(data)
-                    setMovieData(data)
+        axios.get(serverURL)
+        .then(respnose=>{
+            console.log(respnose.data)
+            setMovieData(respnose.data)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
 
-                })
-            })
+        
     }
 
     useEffect(() => {
